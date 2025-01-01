@@ -41,7 +41,7 @@
 
 1. 克隆项目
 ```bash
-git clone https://github.com/yourusername/UDiaries.git
+git clone https://github.com/axcad/UDiaries.git
 ```
 
 2. 启动后端服务
