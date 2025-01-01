@@ -1,5 +1,3 @@
-
-```markdown:README.md
 # UDiaries - 日记本应用
 
 一个简洁的Android日记本应用，支持用户登录注册，可以创建、编辑和管理个人日记。
@@ -17,13 +15,15 @@
 - 编辑日记内容
 - 删除日记
 - 日记时间记录
+- 笔记搜索功能
 
 ## 技术实现
 
 ### 前端
+- Material Design UI组件
 - RecyclerView实现列表展示
-- Fragment实现页面切换
 - Retrofit2处理网络请求
+- 实时搜索过滤
 
 ### 后端
 - JSON Server提供RESTful API
@@ -51,7 +51,6 @@ npm install -g json-server
 
 # 启动服务器
 json-server --watch db.json
-
 ```
 
 3. 配置Android Studio
@@ -67,8 +66,8 @@ json-server --watch db.json
 
 ### 测试账号
 ```
-用户名：test
-密码：123
+用户名：admin
+密码：123456
 ```
 
 ## API接口说明
@@ -82,8 +81,34 @@ POST /users - 用户注册
 ### 日记接口
 ```
 GET /notes - 获取日记列表
+GET /notes/{id} - 获取单个日记
 POST /notes - 创建新日记
-DELETE /notes/:id - 删除日记
+PUT /notes/{id} - 更新日记
+DELETE /notes/{id} - 删除日记
+```
+
+## 数据结构
+
+### 用户数据
+```json
+{
+  "id": "1",
+  "username": "admin",
+  "password": "123456",
+  "email": "test@example.com",
+  "created_at": "2024-03-24T10:00:00Z"
+}
+```
+
+### 笔记数据
+```json
+{
+  "id": "1",
+  "userId": 1,
+  "title": "欢迎使用",
+  "content": "这是您的第一条笔记",
+  "created_at": "2024-03-24T10:00:00Z"
+}
 ```
 
 ## 项目结构
@@ -117,43 +142,26 @@ app/
 │           └── themes.xml
 ```
 
-## 数据库结构
+## 最新更新
 
-```json
-{
-  "users": [
-    {
-      "id": 1,
-      "username": "admin",
-      "password": "123456",
-      "email": "test@example.com",
-      "created_at": "2024-03-24T10:00:00Z"
-    }
-  ],
-  "notes": [
-    {
-      "id": 1,
-      "userId": 1,
-      "title": "欢迎使用",
-      "content": "这是您的第一条笔记",
-      "created_at": "2024-03-24T10:00:00Z"
-    }
-  ]
-}
-```
+- 修改Note模型中id字段为String类型，适配json-server
+- 更新API接口以支持String类型的id
+- 添加笔记搜索功能
+- 优化错误处理和日志记录
+- 完善API响应处理
 
 ## 待开发功能
 
-- [ ] 笔记搜索
 - [ ] 笔记分类
 - [ ] 图片上传
 - [ ] 数据导出
 - [ ] 主题切换
 - [ ] 密码修改
+- [ ] 笔记标签功能
 
 ## 开发者
 
-- [@abc](https://github.com/axcda/)
+- [@yourusername](https://github.com/yourusername)
 
 ## 许可证
 

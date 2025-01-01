@@ -16,6 +16,7 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     private List<Note> notes = new ArrayList<>();
+    private List<Note> filteredNotes = new ArrayList<>();
     private OnNoteClickListener listener;
 
     public interface OnNoteClickListener {
@@ -29,6 +30,23 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public void setNotes(List<Note> notes) {
         this.notes = notes;
+        this.filteredNotes = new ArrayList<>(notes);
+        notifyDataSetChanged();
+    }
+
+    public void filter(String query) {
+        filteredNotes.clear();
+        if (query.isEmpty()) {
+            filteredNotes.addAll(notes);
+        } else {
+            String lowerCaseQuery = query.toLowerCase().trim();
+            for (Note note : notes) {
+                if (note.getTitle().toLowerCase().contains(lowerCaseQuery) ||
+                    note.getContent().toLowerCase().contains(lowerCaseQuery)) {
+                    filteredNotes.add(note);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -42,7 +60,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note note = notes.get(position);
+        Note note = filteredNotes.get(position);
         holder.titleText.setText(note.getTitle());
         holder.contentPreview.setText(note.getContent());
         holder.dateText.setText(note.getCreatedAt());
@@ -64,7 +82,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public int getItemCount() {
-        return notes.size();
+        return filteredNotes.size();
     }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {

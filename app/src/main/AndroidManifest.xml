@@ -27,7 +27,6 @@
         </activity>
         
         <activity android:name=".RegisterActivity" />
-        
         <activity android:name=".NoteListActivity" />
         <activity android:name=".NoteEditActivity" />
         

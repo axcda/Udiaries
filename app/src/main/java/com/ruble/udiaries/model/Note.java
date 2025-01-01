@@ -3,7 +3,8 @@ package com.ruble.udiaries.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Note {
-    private int id;
+    @SerializedName("id")
+    private String id;
     private int userId;
     private String title;
     private String content;
@@ -12,11 +13,11 @@ public class Note {
     private String createdAt;
 
     // Getters and Setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

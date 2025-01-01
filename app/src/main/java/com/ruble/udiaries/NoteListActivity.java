@@ -1,7 +1,12 @@
 package com.ruble.udiaries;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -10,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.ruble.udiaries.adapter.NoteAdapter;
 import com.ruble.udiaries.api.RetrofitClient;
 import com.ruble.udiaries.model.Note;
@@ -24,7 +30,8 @@ public class NoteListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
     private FloatingActionButton fabAdd;
-    private int userId; // 从登录页面传递过来
+    private TextInputEditText searchInput;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +46,11 @@ public class NoteListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         fabAdd = findViewById(R.id.fabAdd);
+        searchInput = findViewById(R.id.searchInput);
 
         setupRecyclerView();
         setupFab();
+        setupSearch();
         loadNotes();
     }
 
@@ -55,6 +64,7 @@ public class NoteListActivity extends AppCompatActivity {
             public void onNoteClick(Note note) {
                 Intent intent = new Intent(NoteListActivity.this, NoteEditActivity.class);
                 intent.putExtra("noteId", note.getId());
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
 
@@ -70,6 +80,32 @@ public class NoteListActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NoteEditActivity.class);
             intent.putExtra("userId", userId);
             startActivity(intent);
+        });
+    }
+
+    private void setupSearch() {
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // 处理搜索按钮点击
+        searchInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                // 隐藏键盘
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                return true;
+            }
+            return false;
         });
     }
 

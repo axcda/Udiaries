@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "password": "123456",
       "email": "test@example.com",
@@ -9,53 +9,18 @@
     },
     {
       "id": 0,
-      "created_at": "2024-12-24T15:45:23Z",
+      "created_at": "2025-01-01T14:10:26Z",
       "password": "123",
-      "username": "test"
+      "username": "123"
     }
   ],
   "notes": [
     {
-      "id": 1,
-      "userId": 1,
-      "title": "欢迎使用",
       "content": "这是您的第一条笔记，您可以点击右下角的加号添加更多笔记。\n\n长按笔记可以删除，点击笔记可以查看详情。",
-      "created_at": "2024-03-24T10:00:00Z"
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "title": "使用说明",
-      "content": "1. 添加笔记：点击右下角的加号\n2. 删除笔记：长按笔记项\n3. 编辑笔记：点击笔记项\n4. 返回列表：点击返回键",
-      "created_at": "2024-03-24T10:30:00Z"
-    },
-    {
-      "id": 0,
-      "content": "32131",
-      "created_at": "2024-12-24T15:44:47Z",
-      "title": "123",
-      "userId": -1
-    },
-    {
-      "id": 0,
-      "content": "3211",
-      "created_at": "2024-12-24T15:44:54Z",
-      "title": "13132",
-      "userId": -1
-    },
-    {
-      "id": 0,
-      "content": "123",
-      "created_at": "2024-12-24T15:44:59Z",
-      "title": "321",
+      "created_at": "2025-01-01T14:06:46Z",
+      "id": "1",
+      "title": "欢迎使用321",
       "userId": 1
-    },
-    {
-      "id": 0,
-      "content": "123",
-      "created_at": "2024-12-24T15:45:33Z",
-      "title": "321",
-      "userId": 0
     }
   ]
 }
